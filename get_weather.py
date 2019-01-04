@@ -41,5 +41,4 @@ if __name__ == '__main__':
     df,city_pinyin = get_weather(city,month)
     # filepath = os.path.join(os.getcwd(),'{}-{}.xlsx'.format(city_pinyin,month))
     # df.to_excel(filepath,index=False)
-    
     print('执行完成，文件已输出，路径为：{}'.format(filepath))
