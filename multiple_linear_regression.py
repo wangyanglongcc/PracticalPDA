@@ -18,7 +18,7 @@ def reg(X,y):
 
 def main():
     df = load_data()
-    X,y = df['y'].value,df[['x1','x2','x3']]
+    X,y = df['y'].values,df[['x1','x2','x3']]
     est = reg(X,y)
     print(est)
 if __name__ == '__main__':
