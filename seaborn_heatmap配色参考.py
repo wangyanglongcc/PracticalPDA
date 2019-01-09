@@ -1,4 +1,4 @@
-```python
+# -*- coding: UTF-8 -*-
 import pandas as pd
 import matplot.pyplot as plt
 import seaborn as sns
@@ -12,4 +12,3 @@ corr = df.loc[df['tmitemid'].isin(goods),[y]+X].corr()
 hm = sns.heatmap(round(corr,2), annot=True, ax=ax, cmap="coolwarm",fmt='.2f',vmin=-1,vmax=1,
                   linewidths=.05)
 f.subplots_adjust(top=0.93)
-```
