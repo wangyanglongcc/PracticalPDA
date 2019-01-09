@@ -2,6 +2,8 @@ import pandas as pd
 import matplot.pyplot as plt
 import seaborn as sns
 %matplotlib inline
+plt.rcParams['font.sans-serif'] = ['SimHei']
+plt.rcParams['axes.unicode_minus'] = False
 
 f, ax = plt.subplots(figsize=(16, 6))
 goods = set(items.loc[items['cor']>0,'tmitemid'])
