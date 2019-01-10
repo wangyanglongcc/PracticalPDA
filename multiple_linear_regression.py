@@ -14,6 +14,7 @@ def reg(X,y):
     res = sm.add_constant(X)
     est = sm.OLS(y, res)
     est = est.fit()
+    print(est.rsquared)
     return est
 
 def main():
