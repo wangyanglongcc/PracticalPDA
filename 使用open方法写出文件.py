@@ -17,6 +17,10 @@ mode说明
 'U'       universal newline mode (deprecated)
 3. encoding:编码方式，常用utf-8,utf-16,gbk
 '''
-
+# 在爬虫的时候有时候需要把文件已json格式写出，且编码为utf-8时，有以下处理方式
+import json
+with open('file.json','a',encoding='utf-8') as f:
+    # content为要写出的内容，是一个字典类型的文本
+    f.write(json.dumps(content,ensure_ascii = False) + '\n')# 需要指定ensure_ascii为False才能以正确的编码方式写出
 
    
