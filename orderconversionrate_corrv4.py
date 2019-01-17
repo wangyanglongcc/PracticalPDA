@@ -4,6 +4,7 @@ import numpy as np
 import os
 import statsmodels.api as sm
 import warnings
+import time
 warnings.filterwarnings('ignore')
 # -*- coding: UTF-8 -*-
 import pandas as pd
@@ -32,17 +33,17 @@ def reg(df):
             df['{}_param'.format(x)] = est.params.loc[x] if est.params.loc[x] else None
     # cannot fit model
     except:
-        # pass
+        pass
         # 相关系数
-        for x in X:
-            df['{}_corr'.format(x)] = 'cannot fit model'
-        # 回归方程参数
-        est = linear_regression(df)
-        df['rsquared'] = 'cannot fit model'
-        df['rsquared_adj'] = 'cannot fit model'
-        df['const_param'] = 'cannot fit model'
-        for x in X:
-            df['{}_param'.format(x)] = 'cannot fit model'
+        # for x in X:
+        #     df['{}_corr'.format(x)] = 'cannot fit model'
+        # # 回归方程参数
+        # est = linear_regression(df)
+        # df['rsquared'] = 'cannot fit model'
+        # df['rsquared_adj'] = 'cannot fit model'
+        # df['const_param'] = 'cannot fit model'
+        # for x in X:
+        #     df['{}_param'.format(x)] = 'cannot fit model'
     return df
 def load_and_clean(inputfile):
     print('-'*10 + 'start' + '-'*10)
@@ -65,15 +66,19 @@ def main(inputfile):
     result = df.groupby(['warehousename','customcategoryname','highcategoryname','categoryname','tmitemid','tmname'],\
                group_keys=False,sort=False).apply(reg)
     # add predict value
-    result = result[result['rsquared']!='cannot fit model']
+    # result = result[result['rsquared']!='cannot fit model']
+    result = result[result['rsquared'].notnull()]
     XP = ['{}_param'.format(i) for i in X]
     result['predict'] = np.sum(result[X].values * result[XP].values,axis=1) + result['const_param'].values
+    result['cut'] = pd.cut(result['rsquared'],bins=[i/10 for i in range(11)])
     result.to_csv(os.path.join('\\'.join(inputfile.split('\\')[:-1]),'相关性计算结果V4.txt'),sep='\t',index=False,encoding='utf-8')
     return result
 
  
 if __name__ == '__main__':
+    tt = time.time()
     y = 'orderconversionrate'
     X = ['staytime','profit','discount','temp_max', 'temp_min', 'olduser_rate']#'amount', 'qty',
     inputfile = r'D:\PycharmProjects\转化率\data\zhl_after_clean.pickle'
     main(inputfile)
+    print('All Done!共耗时{}s'.format(time.time()-tt))
