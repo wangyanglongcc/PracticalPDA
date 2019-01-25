@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 import pandas as pd
-import matplot.pyplot as plt
+import matplotlib.pyplot as plt
 import seaborn as sns
 %matplotlib inline
 plt.rcParams['font.sans-serif'] = ['SimHei']
