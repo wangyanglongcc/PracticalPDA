@@ -6,7 +6,7 @@ def read_csv(filepath_or_buffer,sep=',',encoding='utf-8'):
     '''
     Desc
     ----------
-    读取文本文件，当文件超过2G则使用get_chunk方式。
+    读取文本文件，当文件超过1G则使用get_chunk方式。
     
     Params
     ----------
@@ -15,7 +15,7 @@ def read_csv(filepath_or_buffer,sep=',',encoding='utf-8'):
     encoding:文件编码方式，如utf-8,gbk；默认为utf-8
     '''
     assert os.path.isfile(filepath_or_buffer),"File '{}' does not exist".format(filepath_or_buffer)
-    if os.path.getsize(filepath_or_buffer)/(1024*1024*1000) < 2:
+    if os.path.getsize(filepath_or_buffer)/(1024*1024*1000) < 1:
         df = pd.read_csv(filepath_or_buffer=filepath_or_buffer,sep=sep,encoding=encoding,iterator=False)
         return df
     else:
@@ -45,7 +45,7 @@ def read_csv(filepath_or_buffer,sep=',',encoding='utf-8'):
     '''
     Desc
     ----------
-    读取文本文件，当文件超过2G则使用get_chunk方式。
+    读取文本文件，当文件超过1G则使用get_chunk方式。
     
     Params
     ----------
