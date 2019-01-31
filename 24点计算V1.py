@@ -1,3 +1,7 @@
+# encoding=utf-8
+import itertools
+import random as rd
+
 def get_24point(nums,target):
     iis = list(itertools.permutations(nums,4))
     for ii in iis:
