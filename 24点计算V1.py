@@ -40,20 +40,11 @@ def get_24point(nums,target):
             num3 = ii[2]
             num4 = ii[3]
             for operate1 in ['+','-','*','/']:
-                try:
-                    num11 = eval('{}{}{}'.format(num1,operate1,num2))
-                except:
-                    pass
+                num11 = eval('{}{}{}'.format(num1,operate1,num2))
                 for operate2 in ['+','-','*','/']:
-                    try:
-                        num22 = eval('{}{}{}'.format(num11,operate2,num3))
-                    except:
-                        pass
+                    num22 = eval('{}{}{}'.format(num11,operate2,num3))
                     for operate3 in ['+','-','*','/']:
-                        try:
-                            result = eval('{}{}{}'.format(num22,operate3,num4))
-                        except:
-                            pass
+                        result = eval('{}{}{}'.format(num22,operate3,num4))
                         if result == target:
                             print('(({}{}{}){}{}){}{}={}'.format(num1,operate1,num2,operate3,num3,operate2,num4,target))
                         else:
