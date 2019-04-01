@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
+import time # 添加延时
 
 def get_page(page):
     url = F'https://chejiahao.autohome.com.cn/Authors/AuthorListMore?orderType=3&page={page}&userCategory=13'
@@ -9,14 +10,18 @@ def get_page(page):
         'page': page,
         'userCategory': 13
     }
-    wb_data = requests.post(url, data)
+    headers = {
+        'user-agent':'xxxx',
+        'cookie':'xxxx'
+    } # 添加headers
+    wb_data = requests.post(url, data,headers = headers)
     soup = BeautifulSoup(wb_data.text, 'lxml')
     titles = soup.select('div.list-title')
     descs = soup.select('div.list-mes')
     nums = soup.select('div.list-num')
     for title, desc, num in zip(titles, descs, nums):
         data = {
-            'author': title.get_text(),
+            'article_author': title.get_text(),
             'desc': desc.get_text(),
             'flowers': num.get_text().split('｜')[0].strip().strip('\xa0粉丝'),
             'works': num.get_text().split('｜')[-1].strip().strip('\xa0作品'),
@@ -29,6 +34,7 @@ def get_all_page(max_pages):
     for i in range(1, max_pages + 1):
         tmp = pd.DataFrame(get_page(i))
         df = df.append(tmp).drop_duplicates()
+        time.sleep(2) # 休息2秒
         rows[i] = df.shape[0]
         if rows[i] <= rows[i - 1]:
             print('爬取完成，共有{}页'.format(i-1))
