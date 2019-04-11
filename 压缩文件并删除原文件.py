@@ -16,9 +16,3 @@ def to_zip(local_path, filename):
     # 删除原文件
     os.remove(filename)
     return zipfilename
-
-if __name__ == '__main__':
-    local_path = 'xxx'
-    for filename in glob.glob(os.path.join(local_path,'*.*')):
-        print(filename)
-        to_zip(local_path,filename)
