@@ -21,15 +21,16 @@ def to_zipfile(filename, is_remove=True):
                 'rb').read(),
             compress_type=zipfile.ZIP_DEFLATED)
         azip.close()
+        if is_remove:
+            os.remove(filename)
     else:
         zipfilename = ori_basename
-    if is_remove:
-        os.remove(filename)
     return zipfilename
 
 
 # 压缩文件并删除原文件
 def to_zip(localpath_or_localfile, is_remove=True):
+    print(localpath_or_localfile)
     zipfilenames = []
     if os.path.isdir(localpath_or_localfile):
         for filename in glob.glob(os.path.join(localpath_or_localfile, '*.*')):
@@ -44,9 +45,16 @@ def to_zip(localpath_or_localfile, is_remove=True):
 
 
 if __name__ == '__main__':
-    localpath_or_localfile = r'D:\PycharmProjects\tongyong2018m9\model_output\article'
-    try:
-        zipfiles = to_zip(localpath_or_localfile, False)
-        print(zipfiles)
-    except BaseException:
-        print(F'somethins is wrong with {localpath_or_localfile}')
+    localpath_or_localfiles = [r'D:\PycharmProjects\tongyong2018m9\model_output\t',
+                               r'D:\PycharmProjects\tongyong2018m9\model_output\tt',
+                               r'D:\PycharmProjects\tongyong2018m9\model_output\ttt',
+                               r'D:\PycharmProjects\tongyong2018m9\model_output\tttt',
+                               r'D:\PycharmProjects\tongyong2018m9\model_output\ttttt']
+    # from multiprocessing import Pool
+    # pool = Pool(4)
+    to_zip(localpath_or_localfiles[0])
+    # for i in localpath_or_localfiles:
+    #     to_zip(i,True)
+        # pool.apply_async(to_zip,args=(i,))
+
+
