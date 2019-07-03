@@ -1,2 +1,2 @@
-# Python-DA
-For Python Data Analysis
+# PracticalPAD
+Practical Python Data Analysis
