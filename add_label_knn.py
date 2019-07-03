@@ -7,7 +7,7 @@ from sklearn.externals import joblib
 import warnings
 warnings.filterwarnings('ignore')
 
-def knn():
+def knn(save_model=True):
     path = r'E:\打标'
     df = pd.read_excel(os.path.join(path,'商品打标模型分类数据源.xlsx'),skiprows=1)
     df = pd.get_dummies(df,columns=['isexceedavg_returngoods'])
@@ -35,7 +35,8 @@ def knn():
     best_model = grid_cv.best_estimator_
     print(grid_cv.best_score_)
     print(grid_cv.best_params_)
+    if save_model:
+        joblib.dump(best_model,'knn.model')
 
 if __name__ == '__main__':
-    print
     knn()
