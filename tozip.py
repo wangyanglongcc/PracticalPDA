@@ -14,7 +14,12 @@ def to_zipfile(filename, is_remove=True):
         # 创建压缩文件
         azip = zipfile.ZipFile(zipfilename, 'w')  # zipfilename为完整路径
         # 写入原文件
-        azip.writestr(ori_basename, open(filename, 'rb').read(), compress_type=zipfile.ZIP_DEFLATED)
+        azip.writestr(
+            ori_basename,
+            open(
+                filename,
+                'rb').read(),
+            compress_type=zipfile.ZIP_DEFLATED)
         azip.close()
     else:
         zipfilename = ori_basename
@@ -34,14 +39,14 @@ def to_zip(localpath_or_localfile, is_remove=True):
         zipfilename = to_zipfile(localpath_or_localfile, is_remove)
         zipfilenames.append(zipfilename)
     else:
-        print('输入错误,请输入文件完整路径或路径 或文件是否存在')
+        print('输入错误,请输入文件完整路径或路径 或检查文件是否存在')
     return zipfilenames
 
 
 if __name__ == '__main__':
-    localpath_or_localfile = r'D:\PycharmProjects\tongyong_history\model_output\test'
+    localpath_or_localfile = r'D:\PycharmProjects\tongyong2018m9\model_output\article'
     try:
         zipfiles = to_zip(localpath_or_localfile, False)
         print(zipfiles)
-    except:
+    except BaseException:
         print(F'somethins is wrong with {localpath_or_localfile}')
