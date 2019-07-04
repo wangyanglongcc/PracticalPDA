@@ -5,11 +5,7 @@ import os
 import glob
 
 
-def perjson2xlsx(jsonfile, xlsxfile=None, encoding='utf-8', max_rows=10, is_remove=False):
-    '''
-    该程序仅适用于单层的json格式，如有多层，则不适合。
-    {键1:值1,键2:值2,键3:值3......}
-    '''
+def perjson2xlsx(jsonfile, xlsxfile=None, encoding='utf-8', max_rows=1000000, is_remove=False):
     try:
         with open(jsonfile, 'r+', encoding=encoding) as f:
             df = pd.read_json(f, lines=True)
@@ -22,7 +18,7 @@ def perjson2xlsx(jsonfile, xlsxfile=None, encoding='utf-8', max_rows=10, is_remo
                 df = df.append(tmp)
     df = df.drop_duplicates()
     pages = math.ceil(df.shape[0] / max_rows)
-    print('文件{}共有{}行{}列数据，将会写出{}个文件'.format(jsonfile,df.shape[0], df.shape[1], pages))
+    print('文件{}共有{}行{}列数据，将会写出{}个文件'.format(jsonfile, df.shape[0], df.shape[1], pages))
     if xlsxfile is None:
         xlsxfile = jsonfile.strip('.json') + '.xlsx'
     writer = pd.ExcelWriter(xlsxfile, engine='xlsxwriter', options={'strings_to_urls': False})
@@ -52,6 +48,7 @@ def json2xlsx(jsonfile_or_jsonpath, xlsxfile=None, encoding='utf-8', max_rows=10
             jsonfile = perjson2xlsx(file, xlsxfile, encoding, max_rows, is_remove)
             jsonfiles.append(jsonfile)
     elif os.path.isfile(jsonfile_or_jsonpath):
+        assert os.path.basename(jsonfile_or_jsonpath).endswith('.json'), '文件{}后缀名应为.json'.format(jsonfile_or_jsonpath)
         jsonfile = perjson2xlsx(jsonfile_or_jsonpath, xlsxfile, encoding, max_rows, is_remove)
         jsonfiles.append(jsonfile)
     else:
@@ -60,6 +57,6 @@ def json2xlsx(jsonfile_or_jsonpath, xlsxfile=None, encoding='utf-8', max_rows=10
 
 
 if __name__ == '__main__':
-    jsonfile = r'D:\PycharmProjects\tongyong_history\model_package'
-    res = json2xlsx(jsonfile,max_rows=10,is_remove=True)
+    jsonfile = r'D:\PycharmProjects\tongyong_history\model_package\101_20170501_autohome_forum-3.json'
+    res = json2xlsx(jsonfile, max_rows=10)
     # print(res)
