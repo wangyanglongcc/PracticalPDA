@@ -57,6 +57,7 @@ def json2xlsx(jsonfile_or_jsonpath, xlsxfile=None, encoding='utf-8', max_rows=10
 
 
 if __name__ == '__main__':
-    jsonfile = r'D:\PycharmProjects\tongyong_history\model_package\101_20170501_autohome_forum-3.json'
-    res = json2xlsx(jsonfile, max_rows=10)
+    # 只需要传入一个参数，传入一个文件的完整路径或一个路径
+    jsonfile_or_jsonpath = r'D:\PycharmProjects\tongyong_history\model_package\101_20170501_autohome_forum-3.json'
+    res = json2xlsx(jsonfile_or_jsonpath)
     # print(res)
