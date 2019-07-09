@@ -9,3 +9,4 @@ def round(number, ndigits=2):
     _num = _num.quantize(Decimal('0.{}'.format('0'*ndigits)),rounding=ROUND_HALF_UP)
     return _num
 print(round(11.245,2))
+print(round(11.245,0))
