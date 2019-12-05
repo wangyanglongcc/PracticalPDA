@@ -14,12 +14,7 @@ def to_zipfile(filename, is_remove=True):
         # 创建压缩文件
         azip = zipfile.ZipFile(zipfilename, 'w')  # zipfilename为完整路径
         # 写入原文件
-        azip.writestr(
-            ori_basename,
-            open(
-                filename,
-                'rb').read(),
-            compress_type=zipfile.ZIP_DEFLATED)
+        azip.writestr(ori_basename,open(filename,'rb').read(),compress_type=zipfile.ZIP_DEFLATED)
         azip.close()
         if is_remove:
             os.remove(filename)
