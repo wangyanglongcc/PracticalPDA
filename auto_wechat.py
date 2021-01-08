@@ -3,7 +3,7 @@ import requests
 from threading import Timer
 import datetime as dt
 import time
-
+# 由于微信取消了网页登录，故该程序已失效
 def get_msg():
     url = 'http://open.iciba.com/dsapi'
     wb_data = requests.get(url)
@@ -12,7 +12,7 @@ def get_msg():
     return cn_content,en_content
 
 def send_msg(content):
-    # bot = Bot(cache_path=True)
+    bot = Bot(cache_path=True)
     try:
         my_friend = bot.friends().search('XXX')[0]# 对方的昵称名，对方自己起的昵称
         my_friend.send(content)
